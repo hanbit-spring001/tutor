@@ -4,6 +4,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.Log4jConfigurer;
 
+import com.hanbit.spring.core.service.ExampleService;
+
 public class HelloSpring {
 	
 	public static void main(String[] args) {
@@ -14,9 +16,10 @@ public class HelloSpring {
 				= new ClassPathXmlApplicationContext(
 						"spring/applicationContext-core.xml");
 			
-			FirstBean springBean = applicationContext.getBean(FirstBean.class);
+			ExampleService exampleServie 
+				= applicationContext.getBean(ExampleService.class);
 			
-			springBean.callSecond();
+			exampleServie.addSomething("Spring");
 		}
 		catch(Exception e) {
 			e.printStackTrace();

@@ -7,6 +7,6 @@
 
 	<context:annotation-config />
 	
-	<context:component-scan base-package="com.hanbit.spring" />
+	<context:component-scan base-package="com.hanbit.spring.core" />
 
 </beans>
