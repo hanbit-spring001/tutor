@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hanbit.spring.core.dao.IUserDAO;
 import com.hanbit.spring.core.vo.UserVO;
@@ -13,13 +14,13 @@ import com.hanbit.spring.core.vo.UserVO;
 @Service
 public class UserService {
 
-	@Resource(name="userSpringDAO")
+	@Resource(name="userMybatisDAO")
 	private IUserDAO userDAO;
 	
 	@Autowired
 	private SecurityService securityService;
 
-	// TODO 트랜젝션 처리
+	@Transactional
 	public String signUpUser(UserVO userVO) {
 		
 		String email = userVO.getUserEmail();
@@ -63,7 +64,7 @@ public class UserService {
 		return countUpdated > 0;
 	}
 	
-	// TODO 트랜젝션 처리
+	@Transactional
 	public boolean removeUser(String userId) {
 		
 		int countDeletedUser = userDAO.deleteUser(userId);
