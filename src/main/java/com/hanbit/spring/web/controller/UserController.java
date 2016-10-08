@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hanbit.spring.core.service.UserService;
+import com.hanbit.spring.core.session.SigninRequired;
 import com.hanbit.spring.core.vo.UserVO;
 
 @Controller
@@ -75,4 +77,18 @@ public class UserController {
 		return result;
 	}
 	
+	@SigninRequired
+	@RequestMapping("/api/user/info")
+	@ResponseBody
+	public UserVO getUserDetailBySession(HttpSession session) {
+		String userEmail = (String) session.getAttribute("userEmail");
+		
+		UserVO userVO = userService.getUserDetailByEmail(userEmail);
+		
+		if (userVO == null) {
+			throw new RuntimeException("잘못된 요청");
+		}
+		
+		return userVO;
+	}
 }

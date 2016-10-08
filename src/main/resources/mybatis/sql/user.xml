@@ -62,4 +62,11 @@
 		   AND u.user_id = #{userId}
 	</select>
 
+	<select id="selectUserDetailByEmail" parameterType="string" resultType="userVO">
+		SELECT u.user_id, user_email, user_password, user_tel, user_birthday, user_photo
+		  FROM user u, user_detail d
+		 WHERE u.user_id = d.user_id
+		   AND u.user_email = #{userEmail}
+	</select>
+
 </mapper>

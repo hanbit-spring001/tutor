@@ -1,5 +1,6 @@
 package com.hanbit.spring.core.aop;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -34,8 +35,8 @@ public class ExampleAspect {
 		LOGGER.debug("runAfter");
 	}
 	
-	@Around("@annotation(org.springframework.web.bind.annotation.ResponseBody)")
-	public Object runAroundResponse(ProceedingJoinPoint pjp) {
+	/*@Around("@annotation(org.springframework.web.bind.annotation.ResponseBody)")
+	public Object runAroundResponse(ProceedingJoinPoint pjp) throws Throwable {
 		
 		// Before
 		Object returnValue = null;
@@ -45,6 +46,15 @@ public class ExampleAspect {
 		}
 		catch (Throwable t) {
 			// AfterThrowing
+			if (t instanceof RuntimeException) {
+				Map errorResult = new HashMap();
+				errorResult.put("errorMsg", t.getMessage());
+				
+				return errorResult;
+			}
+			else {
+				throw t;
+			}
 		}
 		
 		// AfterReturning
@@ -56,6 +66,6 @@ public class ExampleAspect {
 		// After
 		
 		return returnValue;
-	}
+	}*/
 	
 }

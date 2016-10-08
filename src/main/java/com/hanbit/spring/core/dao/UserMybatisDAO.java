@@ -59,4 +59,8 @@ public class UserMybatisDAO implements IUserDAO {
 		return sqlSession.selectOne("user.selectUserDetail", userId);
 	}
 
+	public UserVO selectUserDetailByEmail(String userEmail) {
+		return sqlSession.selectOne("user.selectUserDetailByEmail", userEmail);
+	}
+	
 }

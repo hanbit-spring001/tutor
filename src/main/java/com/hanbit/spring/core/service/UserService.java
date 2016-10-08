@@ -2,20 +2,18 @@ package com.hanbit.spring.core.service;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hanbit.spring.core.dao.IUserDAO;
+import com.hanbit.spring.core.dao.UserMybatisDAO;
 import com.hanbit.spring.core.vo.UserVO;
 
 @Service
 public class UserService {
 
-	@Resource(name="userMybatisDAO")
-	private IUserDAO userDAO;
+	@Autowired
+	private UserMybatisDAO userDAO;
 	
 	@Autowired
 	private SecurityService securityService;
@@ -81,6 +79,11 @@ public class UserService {
 	public UserVO getUserDetail(String userId) {
 	
 		return userDAO.selectUserDetail(userId);
+	}
+	
+	public UserVO getUserDetailByEmail(String userEmail) {
+		
+		return userDAO.selectUserDetailByEmail(userEmail);
 	}
 	
 }
