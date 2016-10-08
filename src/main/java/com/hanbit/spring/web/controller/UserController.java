@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hanbit.spring.core.service.UserService;
+import com.hanbit.spring.core.session.SessionHelper;
 import com.hanbit.spring.core.session.SigninRequired;
 import com.hanbit.spring.core.vo.UserVO;
 
@@ -80,8 +81,9 @@ public class UserController {
 	@SigninRequired
 	@RequestMapping("/api/user/info")
 	@ResponseBody
-	public UserVO getUserDetailBySession(HttpSession session) {
-		String userEmail = (String) session.getAttribute("userEmail");
+	public UserVO getUserDetailBySession() {
+		Map session = SessionHelper.getSession();
+		String userEmail = (String) session.get("userEmail");
 		
 		UserVO userVO = userService.getUserDetailByEmail(userEmail);
 		
